@@ -16,11 +16,10 @@ return {
 		-- set termguicolors to enable hightlight groups
 		vim.opt.termguicolors = true
 
-
 		-- nvimtree setup
 		nvimtree.setup({
 			view = {
-				width = 30
+				width = 35
 			}
 		})
 		vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeFindFile<CR>", { desc = "Toggle file explorer" })

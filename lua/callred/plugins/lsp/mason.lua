@@ -1,21 +1,20 @@
 return {
     "williamboman/mason.nvim",
-
     dependencies = {
         "williamboman/mason-lspconfig.nvim",
     },
-   
     config = function()
         local mason = require("mason")
         local mason_lspconfig = require("mason-lspconfig")
-
+        mason.setup()
         mason.setup({
             ui = {
                 icons = {
-                    package_installed = "󰄳 ", -- "✓"
-                    package_pending = " ", -- "➜"
-                    package_uninstalled = " ✗", -- " 󰚌"
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = " ✗",
                 },
+                -- Todo: there are all defaults shoudl we delete these? 
                 keymaps = {
                     toggle_server_expand = "<CR>",
                     install_server = "i",
@@ -27,50 +26,22 @@ return {
                     cancel_installation = "<C-c>",
                 },
             },
-            max_concurrent_installers = 10,
-        })
-
-        mason.setup({
+            max_concurrent_installers = 4,
             ensure_installed = {
-                -- python stuff
-                -- "python-lsp-server",
-                -- "pyright",
-                -- "isort",
-                -- "black",
-                -- "pylint",
-
                 -- lua stuff
                 "lua-language-server",
                 "stylua",
 
                 -- web dev stuff
-                -- "css-lsp",
-                -- "html-lsp",
-                -- "typescript-language-server",
-                -- "prettier",
-                -- "eslint_d",
-                -- "tailwindcss-language-server",
-                -- "svelte-language-server",
-                -- "angular-language-server",
-                -- "stylelint-lsp",
-                -- "eslint-lsp",
-                -- "stylelint",
+                "css-lsp",
+                "html-lsp",
+                "typescript-language-server",
 
-                -- c/cpp stuff
-                -- "clangd",
-                -- "clang-format",
-
-                -- rust stuff
-                -- "rust-analyzer",
-
-                -- sql stuff
-                -- "sqlls",
             },
         })
 
         mason_lspconfig.setup({
-            -- auto-install configured servers (with lspconfig)
-            automatic_installation = true, -- not the same as ensure_installed
+            automatic_installation = true,
         })
     end,
 }
