@@ -16,7 +16,7 @@ vim.g.mapleader = " "
 
 require("lazy").setup(
     {
-        { import = "callred.plugins" },   
+        { import = "callred.plugins" },
         { import = "callred.plugins.lsp" },
     },
     {
