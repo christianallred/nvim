@@ -1,35 +1,40 @@
-local opt = vim.opt
+-- nunber lines
+vim.opt.nu = true
+vim.opt.relativenumber = true
 
-opt.nu = true
-opt.relativenumber = true
+-- tab stuff
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
-opt.tabstop = 4
-opt.softtabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true
+vim.opt.smartindent = true
 
-opt.smartindent = true
+vim.opt.wrap = false
 
-opt.wrap = false
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.nvim/undodir"
+vim.opt.undofile = true
 
-opt.swapfile = false
-opt.backup = false
-opt.undodir = os.getenv("HOME") .. "/.nvim/undodir"
-opt.undofile = true
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
 
-opt.hlsearch = true
-opt.incsearch = true
+vim.opt.termguicolors = true
 
-opt.termguicolors = true
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+-- vim.opt.isfname:append("@-@")
 
-opt.scrolloff = 8
-opt.signcolumn = "yes"
--- opt.isfname:append("@-@")
+vim.opt.updatetime = 50
 
-opt.updatetime = 50
+vim.opt.colorcolumn = "80"
+vim.opt.exrc = true
 
-opt.colorcolumn = "80"
-opt.exrc = true
+
+-- Turn of netrw default vim file explorere
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 
 
