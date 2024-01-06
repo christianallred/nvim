@@ -1,6 +1,3 @@
--- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
-
 return {
 	"nvim-tree/nvim-tree.lua",
     enabled = true,

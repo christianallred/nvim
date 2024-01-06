@@ -14,14 +14,16 @@ keymap.set("x", "<leader>d", [["_d]], { desc = "Delete to void register" })
 
 -- Normal mode
 keymap.set("n", "J", "mzJ`z", { desc = "Join lines but remain focus" })
+
 keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down" })
 keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up" })
+
 keymap.set("n", "n", "nzzzv", { desc = "When searching down center screen" })
 keymap.set("n", "N", "Nzzzv", { desc = "When searching up center screen" })
 
+-- TOOD: what is this all about? 
 keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix" })
 keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix" })
-
 keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location" })
 keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location" })
 
@@ -44,5 +46,5 @@ keymap.set("i", "<C-k>", "<Up>", { desc = "Move up" })
 
 
 keymap.set("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights" })
-keymap.set("n", "<C-s>", "<cmd> w <CR>", { desc = "Save file" })
+-- keymap.set("n", "<C-s>", "<cmd> w <CR>", { desc = "Save file" })
 
