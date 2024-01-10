@@ -11,14 +11,14 @@ local on_attach = function(ev)
 	local lsp = vim.lsp
 	local diagnostic = vim.diagnostic
 
-	-- set keybinds
-	opts.desc = "LSP declaration"
-	keymap.set("n", "gD", lsp.buf.declaration, opts)
+    -- set keybinds
+    opts.desc = "LSP definition"
+    keymap.set("n", "gd", function()
+        lsp.buf.definition()
+    end, opts)
 
-	opts.desc = "LSP definition"
-	keymap.set("n", "gd", function()
-		lsp.buf.definition()
-	end, opts)
+    opts.desc = "LSP declaration"
+    keymap.set("n", "gD", lsp.buf.declaration, opts)
 
 	opts.desc = "LSP hover"
 	keymap.set("n", "K", lsp.buf.hover, opts)
@@ -26,7 +26,7 @@ local on_attach = function(ev)
 	opts.desc = "LSP implementation"
 	keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 
-	opts.desc = "LSP signature help"
+    opts.desc = "LSP signature help"
 	keymap.set("n", "<leader>ls", function()
 		lsp.buf.signature_help()
 	end, opts)
@@ -51,6 +51,7 @@ local on_attach = function(ev)
 	opts.desc = "Show buffer diagnostics"
 	keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
 
+    -- todo this doesnt seem tod o anything. 
 	opts.desc = "Restart LSP"
 	keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
 
@@ -64,8 +65,6 @@ local on_attach = function(ev)
 	opts.desc = "Show line diagnostics"
 	keymap.set("n", "<leader>d", diagnostic.open_float, opts)
 
-	opts.desc = "Show line diagnostics"
-	keymap.set("n", "<leader>d", diagnostic.open_float, opts)
 end
 
 return {
@@ -74,31 +73,35 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
+        -- Auto complete shit
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
 		"hrsh7th/nvim-cmp",
-		-- TODO: maybe add fidget here for lsp updates / info
+        -- Lsp boot popups
+        "j-hui/fidget.nvim"
 	},
 	config = function()
 		-- Get mason going first
+        require("fidget").setup()
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			automatic_installation = true,
 			ensure_installed = {
+                "tsserver",
+                "html",
+                "cssls",
 				"lua_ls",
-				"cssls",
-				"html",
-				"tsserver",
 			},
 			handlers = {
 				function(server_name)
-					local capabilities = require("cmp_nvim_lsp").default_capabilities()
+                    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 					require("lspconfig")[server_name].setup({
 						capabilities = capabilities,
 					})
 
+                    -- So that i dont get the annoying `vim` is not a global
 					require("lspconfig")["lua_ls"].setup({
 						settings = {
 							Lua = {
@@ -116,22 +119,32 @@ return {
 			callback = on_attach,
 		})
 
+        -- https://www.youtube.com/watch?v=MuUrCcvE-Yw&t=2599s
+        -- continue form here 39:30
 		-- Completion shit
-		-- TOOD: if i want snippets i can do it here.
-
 		local cmp = require("cmp")
-		local cmp_select = { behavior = cmp.SelectBehavior.Select }
+		local cmp_select = {
+            behavior = cmp.SelectBehavior.SelectBehavior
+        }
 		cmp.setup({
 			mapping = cmp.mapping.preset.insert({
 				["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-				["<C-y>"] = cmp.mapping.confirm({ select = true }),
-				["<C-Space>"] = cmp.mapping.complete(),
+                ["<C-e>"] = cmp.mapping.abort(),
+                ["<C-Space>"] = cmp.mapping.complete(),
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
 			}),
 			sources = cmp.config.sources({
-				-- { name = ""}
+                { name ="nvim_lsp" }
+            },{
+                --{ name = "nvim_lsp" },
+                -- { name = "luasnip" } 
 				{ name = "buffer" },
 			}),
 		})
+
+        vim.diagnostic.config({
+            virtual_text = true
+        })
 	end,
 }
