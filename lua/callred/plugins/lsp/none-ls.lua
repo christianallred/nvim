@@ -25,6 +25,7 @@ return {
             sources = {
                 -- Lua
                 formatting.stylua,
+                formatting.gofumpt,
             },
             -- configure format on save
             on_attach = function(current_client, bufnr)

@@ -8,7 +8,6 @@
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
- 
 
         -- General configuration
         telescope.setup({
@@ -38,9 +37,9 @@
         keymap.set("n", "<leader>fs", "<cmd>Telescope grep_string<CR>", { desc = "Find string under cursor" })
 
         -- Git
-        keymap.set("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "Find Git commits" })
-        keymap.set("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "Find Git status" })
-        keymap.set("n", "<leader>pf", "<cmd>Telescope git_files<CR>", { desc = "Fuzzy find non git-ignorred files" })
+        keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Find Git commits" })
+        keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Find Git status" })
+        keymap.set("n", "<leader>gf", "<cmd>Telescope git_files<CR>", { desc = "Fuzzy find non git-ignorred files" })
 
         -- Bookmarks
         keymap.set("n", "<leader>gt", "<cmd>Telescope marks<CR>", { desc = "Find bookmarks" })
