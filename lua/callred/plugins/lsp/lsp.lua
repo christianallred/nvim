@@ -96,9 +96,20 @@ return {
 			},
 			handlers = {
 				function(server_name)
-                    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+                    local cmp = require("cmp_nvim_lsp")
+                    local capabilities_with_extras = vim.tbl_deep_extend(
+                        "force",
+                        {},
+                        vim.lsp.protocol.make_client_capabilities(),
+                        cmp.default_capabilities()
+                    )
+
+
+
+                    --local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 					require("lspconfig")[server_name].setup({
-						capabilities = capabilities,
+						capabilities = capabilities_with_extras,
 					})
 
                     -- So that i dont get the annoying `vim` is not a global
