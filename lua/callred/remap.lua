@@ -25,6 +25,7 @@ keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz", { desc = "Previous quickfix" })
 keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location" })
 keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location" })
 
+-- TODO: is this better than the lsp rename? 
 keymap.set(
     "n",
     "<leader>s",

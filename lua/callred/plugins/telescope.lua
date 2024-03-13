@@ -21,32 +21,27 @@
                 }
             },
         })
-        local keymap = vim.keymap
 
-        keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
-        keymap.set(
-            "n", "<leader>fa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",{ desc = "Find all" }
-        )
-        keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "Find using grep" })
+        local builtin = require('telescope.builtin')
 
-        keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Find buffers" })
-        keymap.set("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Find in current buffer" })
+        vim.keymap.set("n", "<leader>ff", builtin.find_files , { desc = "[f]ind [f]iles" })
+        vim.keymap.set("n", "<leader>fk", builtin.keymaps , { desc = "[f]ind [k]eymaps" })
+        vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[f]ind [g]rep" })
+        vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[f]ind [h]elp" })
+        vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[f]ind [b]uffers" })
+        vim.keymap.set("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "[f]ind fu[z]zy buffer" })
 
-        keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Find help" })
-        keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "Find old files" })
-        keymap.set("n", "<leader>fs", "<cmd>Telescope grep_string<CR>", { desc = "Find string under cursor" })
+        vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "[f]ind [o]ld files" })
+        vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "[f]ind [s]tring under cursor" })
 
         -- Git
-        keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Find Git commits" })
-        keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Find Git status" })
-        keymap.set("n", "<leader>gf", "<cmd>Telescope git_files<CR>", { desc = "Fuzzy find non git-ignorred files" })
+        vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Find [g]it [c]ommits" })
+        vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Find [g]it [s]tatus" })
+        vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Find [g]it-ignorred [f]iles" })
 
         -- Bookmarks
-        keymap.set("n", "<leader>gt", "<cmd>Telescope marks<CR>", { desc = "Find bookmarks" })
+        vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "[f]ind [m]arks" })
 
-        -- Undo
-        -- TODO: this is an extension that we ae need
-        -- keymap.set("n", "<leader>u", "<cmd>Telescope undo<CR>", { desc = "Find undo history" })
     end
 }
 

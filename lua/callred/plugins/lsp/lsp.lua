@@ -2,11 +2,7 @@
 -- it gets attache dusing the vim auto attach api
 local on_attach = function(ev)
 	-- Enable completion triggered by <c-x><c-o>
-	vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-	-- Just tring to put all of the errors in one place.
-	local lsp = vim.lsp
-	local diagnostic = vim.diagnostic
+    vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
 	local function remap(mode, l, r, opts)
 		opts = opts or {}
@@ -14,33 +10,27 @@ local on_attach = function(ev)
 		vim.keymap.set(mode, l, r, opts)
 	end
 
+    local builtin = require("telescope.builtin")
 	-- set keybinds
-	remap("n", "gd", function()
-		lsp.buf.definition()
-	end, { desc = "LSP Definition" })
-	remap("n", "gD", lsp.buf.declaration, { desc = "LSP Declaration" })
-	remap("n", "K", lsp.buf.hover, { desc = "Lsp Hover" })
-	remap("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "LSP implementation" })
-	remap({ "n", "v" }, "<leader>ca", lsp.buf.code_action, { desc = "LSP code action" })
-	remap("n", "gr", function()
-		lsp.buf.references()
-	end, { desc = "LSP references" })
-    remap("n", "<leader>ls", function()
-        lsp.buf.signature_help()
-    end, { desc = "LSP signature help" })
+    remap("n", "gd", builtin.lsp_definitions, { desc = "[g]oto [d]efinition" })
+    remap("n", "gD", builtin.lsp_type_definitions, { desc = "[g]oto [D]eclaration" })
+    remap("n", "gi", builtin.lsp_implementations, { desc = "[g]oto [i]mplementation" })
+    remap("n", "gr", builtin.lsp_references, { desc = "[g]oto [r]eferences" })
+    remap("n", "K", vim.lsp.buf.hover, { desc = "Lsp Hover" })
+    remap("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "LSP signature help" })
+    -- this seems to be a duplicte of <leader>s
+    remap("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP rename" })
 
-	-- this doesnt seem to be working?
-	remap("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "LSP definition type" })
-	remap("n", "<leader>rn", lsp.buf.rename, { desc = "LSP rename" })
-	remap("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Show buffer diagnostics" })
-
+    -- doesnt seem to work
+    remap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
 	remap("n", "<leader>rs", ":LspRestart<CR>", { desc = "Restart LSP" })
 
-	-- TODO: should i use folke/trouble instead?
-	remap("n", "[d", diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
-	remap("n", "]d", diagnostic.goto_next, { desc = "Go to next diagnostic" })
-	remap("n", "<leader>d", diagnostic.open_float, { desc = "Show line diagnostics" })
+    -- TODO: should i use folke/trouble instead?
+    remap("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
+	remap("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+	remap("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 end
+
 
 return {
 	"neovim/nvim-lspconfig",
@@ -69,6 +59,8 @@ return {
 				"html",
 				"cssls",
 				"lua_ls",
+                "angularls",
+                "gopls",
 			},
 			handlers = {
 				function(server_name)
