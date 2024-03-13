@@ -13,16 +13,15 @@ local on_attach = function(ev)
     local builtin = require("telescope.builtin")
 	-- set keybinds
     remap("n", "gd", builtin.lsp_definitions, { desc = "[g]oto [d]efinition" })
-    remap("n", "gD", builtin.lsp_type_definitions, { desc = "[g]oto [D]eclaration" })
-    remap("n", "gi", builtin.lsp_implementations, { desc = "[g]oto [i]mplementation" })
     remap("n", "gr", builtin.lsp_references, { desc = "[g]oto [r]eferences" })
+    remap("n", "gi", builtin.lsp_implementations, { desc = "[g]oto [i]mplementation" })
+    remap("n", "gD", builtin.lsp_type_definitions, { desc = "[g]oto [D]eclaration" })
+    remap("n", "<leader>ds", builtin.lsp_document_symbols, {desc = "[d]ocument [s]ymbols"}) 
     remap("n", "K", vim.lsp.buf.hover, { desc = "Lsp Hover" })
     remap("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "LSP signature help" })
-    -- this seems to be a duplicte of <leader>s
-    remap("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP rename" })
+    remap("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[r]e[n]ame" })
+    remap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[c]ode [a]ction" })
 
-    -- doesnt seem to work
-    remap({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
 	remap("n", "<leader>rs", ":LspRestart<CR>", { desc = "Restart LSP" })
 
     -- TODO: should i use folke/trouble instead?
