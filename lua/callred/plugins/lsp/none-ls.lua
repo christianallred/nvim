@@ -13,8 +13,6 @@ return {
         -- local null_ls_utils = require("null-ls.utils")
         -- local mason_null_ls = require("mason-null-ls")
 
-        -- for conciseness
-        local formatting = null_ls.builtins.formatting
         -- local diagnostics = null_ls.builtins.diagnostics
 
         -- to setup format on save
@@ -24,9 +22,7 @@ return {
             -- add package.json as identifier for root (for typescript monorepos)
             sources = {
                 -- Lua
-                formatting.stylua,
-                -- Golang
-                formatting.gofumpt,
+                null_ls.builtins.formatting.stylua
             },
             -- configure format on save
             on_attach = function(current_client, bufnr)

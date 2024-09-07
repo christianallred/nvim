@@ -11,7 +11,8 @@ local on_attach = function(ev)
 	end
 
     local builtin = require("telescope.builtin")
-	-- set keybinds
+
+    -- set keybinds
     remap("n", "gd", builtin.lsp_definitions, { desc = "[g]oto [d]efinition" })
     remap("n", "gr", builtin.lsp_references, { desc = "[g]oto [r]eferences" })
     remap("n", "gi", builtin.lsp_implementations, { desc = "[g]oto [i]mplementation" })
@@ -59,7 +60,7 @@ return {
 			handlers = {
 				function(server_name)
 					local cmp = require("cmp_nvim_lsp")
-					local capabilities_with_extras = vim.tbl_deep_extend(
+                    local capabilities_with_extras = vim.tbl_deep_extend(
 						"force",
 						{},
 						vim.lsp.protocol.make_client_capabilities(),
@@ -103,13 +104,15 @@ return {
 				["<C-Space>"] = cmp.mapping.complete(),
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
 			}),
+
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-			}, {
-				--{ name = "nvim_lsp" },
-				-- { name = "luasnip" }
-				{ name = "buffer" },
-			}),
+                { name = "nvim_lsp" },
+            },
+            {
+                -- { name = "nvim_lsp" },
+                -- { name = "luasnip" }
+                { name = "buffer" },
+            }),
 		})
 
 		vim.diagnostic.config({
