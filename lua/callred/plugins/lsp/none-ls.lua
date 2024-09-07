@@ -25,6 +25,7 @@ return {
             sources = {
                 -- Lua
                 formatting.stylua,
+                -- Golang
                 formatting.gofumpt,
             },
             -- configure format on save

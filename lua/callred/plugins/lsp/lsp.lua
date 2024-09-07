@@ -54,12 +54,7 @@ return {
 		require("mason-lspconfig").setup({
 			automatic_installation = true,
 			ensure_installed = {
-				"tsserver",
-				"html",
-				"cssls",
 				"lua_ls",
-                "angularls",
-                "gopls",
 			},
 			handlers = {
 				function(server_name)

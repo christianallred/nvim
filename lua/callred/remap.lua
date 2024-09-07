@@ -35,7 +35,6 @@ keymap.set("i", "<C-l>", "<Right>", { desc = "Move right" })
 keymap.set("i", "<C-j>", "<Down>", { desc = "Move down" })
 keymap.set("i", "<C-k>", "<Up>", { desc = "Move up" })
 
-
 keymap.set("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights" })
 -- keymap.set("n", "<C-s>", "<cmd> w <CR>", { desc = "Save file" })
 

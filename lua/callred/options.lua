@@ -34,7 +34,7 @@ opt.exrc = true
 
 
 -- Turn of netrw default vim file explorere
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 
