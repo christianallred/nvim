@@ -33,3 +33,9 @@ vim.keymap.set("i", "<C-k>", "<Up>", { desc = "Move up" })
 
 vim.keymap.set("n", "<Esc>", "<cmd> noh <CR>", { desc = "Clear highlights" })
 vim.keymap.set("n", "<C-s>", "<cmd> w <CR>", { desc = "Save file" })
+
+-- TODO: Dont know that i really care about this
+vim.keymap.set("n", "<leader>sh", "<C-w>v", { desc = "[s]plit window [v]ertically" })
+vim.keymap.set("n", "<leader>sv", "<C-w>s", { desc = "[s]plit window [h]orizontally" })
+vim.keymap.set("n", "<leader>se", "<C-w>=", { desc = "[s]plits [e]qual size" })
+vim.keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "[s]plit close" })

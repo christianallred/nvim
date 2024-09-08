@@ -11,10 +11,6 @@ return {
 	config = function()
 		local cmp = require("cmp")
 
-		local cmp_select = {
-			behavior = cmp.SelectBehavior.SelectBehavior,
-		}
-
 		cmp.setup({
 			mapping = cmp.mapping.preset.insert({
 				["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -23,13 +19,12 @@ return {
 				["<C-Space>"] = cmp.mapping.complete(),
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
 			}),
-            sources = cmp.config.sources({
+			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
 				{ name = "buffer" },
 				{ name = "path" },
 				--{ name = "cmdline" },
 			}),
 		})
-
 	end,
 }

@@ -14,10 +14,12 @@ return {
 			highlight = {
 				enable = true,
 			},
+			-- TODO: what
 			indent = {
 				enable = true,
 			},
 			-- TODO: look at incremental selection
+			-- TODO: whta
 		})
 	end,
 }
