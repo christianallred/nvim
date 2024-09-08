@@ -2,7 +2,7 @@
 -- it gets attache dusing the vim auto attach api
 local on_attach = function(ev)
     -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+    -- vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
     local function remap(mode, l, r, opts)
         opts = opts or {}
@@ -31,102 +31,15 @@ local on_attach = function(ev)
     remap("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 end
 
+-- TODO should any of this be here if its not requried for lsp-config but is instead just mapping ita ll?
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback = on_attach,
+})
+
 -- TODO: i think i can break apart mason, lsp-config, and cmp
 return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-        -- For installing language servers
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-
-        -- Auto complete shit
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/nvim-cmp",
-
-        -- Lsp boot popups
-        "j-hui/fidget.nvim",
-    },
-    config = function()
-        -- Get mason going first
-        require("fidget").setup()
-
-        require("mason").setup()
-
-        require("mason-lspconfig").setup({
-            automatic_installation = true,
-            ensure_installed = {
-                "lua_ls",
-                "tsserver",
-            },
-            handlers = {
-                function(server_name)
-                    -- autocomplete
-                    local capabilities_with_extras = vim.tbl_deep_extend(
-                        "force",
-                        {},
-                        vim.lsp.protocol.make_client_capabilities(),
-                        require("cmp_nvim_lsp").default_capabilities()
-                    )
-
-                    -- https://github.com/neovim/nvim-lspconfig/pull/3232
-                    if server_name == "tsserver" then
-                        server_name = "ts_ls"
-                    end
-
-                    -- So that i dont get the annoying `vim` is not a global
-                    if server_name == "lua_ls" then
-                        require("lspconfig")["lua_ls"].setup({
-                            settings = {
-                                Lua = {
-                                    diagnostics = { globals = { "vim" } },
-                                },
-                            },
-                            capabilities = capabilities_with_extras,
-                        })
-                        return
-                    end
-
-                    require("lspconfig")[server_name].setup({
-                        capabilities = capabilities_with_extras,
-                    })
-                end,
-            },
-        })
-
-        -- If i need any custom config we can do it here :)
-        vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-            callback = on_attach,
-        })
-
-        -- Completion shit
-        local cmp = require("cmp")
-
-        local cmp_select = {
-            behavior = cmp.SelectBehavior.SelectBehavior,
-        }
-
-        cmp.setup({
-            mapping = cmp.mapping.preset.insert({
-                ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-                ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-                ["<C-e>"] = cmp.mapping.abort(),
-                ["<C-Space>"] = cmp.mapping.complete(),
-                ["<CR>"] = cmp.mapping.confirm({ select = true }),
-            }),
-            sources = cmp.config.sources({
-                { name = "nvim_lsp" },
-            }, {
-                { name = "buffer" },
-            }),
-        })
-
-        vim.diagnostic.config({
-            virtual_text = true,
-        })
-    end,
+    config = function() end,
 }

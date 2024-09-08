@@ -1,7 +1,10 @@
+-- none-ls gives me a way to attach arbitrary things to the lsp
+-- this is nice becuase then i can do things like formating
+-- which would not normally be in teh perview of lsp
 return {
     "nvimtools/none-ls.nvim",
     dependencies = {
-        "jay-babu/mason-null-ls.nvim",
+        -- "jay-babu/mason-null-ls.nvim",
     },
     lazy = true,
     event = {
@@ -10,7 +13,7 @@ return {
     },
     config = function()
         local null_ls = require("null-ls")
-        -- local null_ls_utils = require("null-ls.utils")
+
         -- local mason_null_ls = require("mason-null-ls")
 
         -- local diagnostics = null_ls.builtins.diagnostics
