@@ -1,14 +1,14 @@
 local opt = vim.opt
 
 -- nunber lines
-opt.nu = true
+opt.number = true
 opt.relativenumber = true
 
 -- tab stuff
-opt.tabstop = 4
-opt.softtabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true
+opt.tabstop = 2      -- 2 spaces for tabs
+opt.softtabstop = 2  --  not sure what this one does
+opt.shiftwidth = 2   -- 2 spaces for indent witdth
+opt.expandtab = true -- expand tabs to spaces
 
 opt.smartindent = true
 
@@ -32,9 +32,6 @@ opt.updatetime = 50
 opt.colorcolumn = "80"
 opt.exrc = true
 
-
 -- Turn of netrw default vim file explorere
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
-
-

@@ -1,20 +1,29 @@
 return {
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 500
+    end,
+    opts = {
+      --
+    },
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    config = function()
+      vim.cmd("colorscheme tokyonight-night")
+    end,
+  },
+  --[[
 	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 500
-		end,
-		opts = {
-			--
-		},
-	},
-	{
-		"folke/tokyonight.nvim",
+		"rose-pine/neovim",
 		lazy = false,
 		config = function()
-			vim.cmd("colorscheme tokyonight-night")
+			vim.cmd("colorscheme rose-pine")
 		end,
 	},
+  ]]
 }

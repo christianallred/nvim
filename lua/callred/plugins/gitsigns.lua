@@ -1,66 +1,55 @@
 local function on_attach(bufnr)
-    local gs = package.loaded.gitsigns
+	local gs = package.loaded.gitsigns
 
-    local function remap(mode, l, r, opts)
-        opts = opts or {}
-        opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
-    end
+	local function remap(mode, l, r, opts)
+		opts = opts or {}
+		opts.buffer = bufnr
+		vim.keymap.set(mode, l, r, opts)
+	end
 
-    -- Navigation
-    remap("n", "]c", function()
-        if vim.wo.diff then
-            return "]c"
-        end
-        vim.schedule(function()
-            gs.next_hunk()
-        end)
-        return "<Ignore>"
-    end, { expr = true, desc = "GSigns: next hunk" })
+	-- Navigation
+	remap("n", "]c", function()
+		if vim.wo.diff then
+			return "]c"
+		end
+		vim.schedule(function()
+			gs.next_hunk()
+		end)
+		return "<Ignore>"
+	end, { expr = true, desc = "GSigns: next hunk" })
 
-    remap("n", "[c", function()
-        if vim.wo.diff then
-            return "[c"
-        end
-        vim.schedule(function()
-            gs.prev_hunk()
-        end)
-        return "<Ignore>"
-    end, { expr = true, desc = "GSigns: prev hunk" })
+	remap("n", "[c", function()
+		if vim.wo.diff then
+			return "[c"
+		end
+		vim.schedule(function()
+			gs.prev_hunk()
+		end)
+		return "<Ignore>"
+	end, { expr = true, desc = "GSigns: prev hunk" })
 
-    -- Actions
-    remap("n", "<leader>hs", gs.stage_hunk, { desc = "GSigns: stage hunk" })
-    remap("n", "<leader>hr", gs.reset_hunk, { desc = "GSigns: reset hunk" })
+	-- Actions
+	remap("n", "<leader>gS", gs.stage_hunk, { desc = "GSigns: stage hunk" })
+	remap("n", "<leader>gr", gs.reset_hunk, { desc = "GSigns: reset hunk" })
+	remap("n", "<leader>gu", gs.undo_stage_hunk, { desc = "GSigns: undo stage buffer" })
+	remap("n", "<leader>gR", gs.reset_buffer, { desc = "GSigns: reset buffer" })
+	remap("n", "<leader>gp", gs.preview_hunk, { desc = "GSigns: preview hunk" })
+	remap("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "GSigns: toggle current blame line" })
+	remap("n", "<leader>gd", gs.diffthis, { desc = "GSigns: diff this" })
+	remap("n", "<leader>hD", function()
+		gs.diffthis("~")
+	end, { desc = "GSigns: diff this ~" })
+	remap("n", "<leader>td", gs.toggle_deleted, { desc = "GSigns: toggle deleted" })
 
-    remap("v", "<leader>hs", function()
-        gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-    end)
-    remap("v", "<leader>hr", function()
-        gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-    end)
-    remap("n", "<leader>hS", gs.stage_buffer, { desc = "GSigns: stage buffer" })
-    remap("n", "<leader>hu", gs.undo_stage_hunk, { desc = "GSigns: undo stage buffer" })
-    remap("n", "<leader>hR", gs.reset_buffer, { desc = "GSigns: reset buffer" })
-    remap("n", "<leader>hp", gs.preview_hunk, { desc = "GSigns: preview hunk" })
-    remap("n", "<leader>hb", function()
-        gs.blame_line({ full = true })
-    end, { desc = "GSigns: blame line" })
-    remap("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "GSigns: toggle current blame line" })
-    remap("n", "<leader>hd", gs.diffthis, { desc = "GSigns: diff this" })
-    remap("n", "<leader>hD", function()
-        gs.diffthis("~")
-    end, { desc = "GSigns: diff this ~" })
-    remap("n", "<leader>td", gs.toggle_deleted, { desc = "GSigns: toggle deleted" })
-
-    -- Text object
-    remap({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+	-- Text object
+	remap({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 end
 
 return {
-    "lewis6991/gitsigns.nvim",
-    config = function()
-        require("gitsigns").setup({
-            on_attach = on_attach,
-        })
-    end,
+	"lewis6991/gitsigns.nvim",
+	config = function()
+		require("gitsigns").setup({
+			on_attach = on_attach,
+		})
+	end,
 }
