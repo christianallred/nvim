@@ -38,7 +38,7 @@ return {
     vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "[f]ind [t]odos" })
 
     -- Git
-    vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Find [g]it [c]ommits" })
+    --    vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Find [g]it [c]ommits" })
     vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Find [g]it [s]tatus" })
     vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Find [g]it-ignorred [f]iles" })
 
