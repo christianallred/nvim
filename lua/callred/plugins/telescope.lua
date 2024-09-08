@@ -1,51 +1,45 @@
- return {
-    "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
-    update = ":TSUpdate",
-    config = function()
-        local telescope = require("telescope")
-        local actions = require("telescope.actions")
+return {
+	"nvim-telescope/telescope.nvim",
+	branch = "0.1.x",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+	},
+	update = ":TSUpdate",
+	config = function()
+		local telescope = require("telescope")
+		local actions = require("telescope.actions")
 
-        -- General configuration
-        telescope.setup({
-            defaults = {
-                mappings = {
-                    i = {
-                        ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-                        ["<C-j>"] = actions.move_selection_next,     -- move to next result
-                        ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-                    },
-                }
-            },
-        })
+		-- General configuration
+		telescope.setup({
+			defaults = {
+				mappings = {
+					i = {
+						["<C-k>"] = actions.move_selection_previous, -- move to prev result
+						["<C-j>"] = actions.move_selection_next, -- move to next result
+						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+					},
+				},
+			},
+		})
 
-        local builtin = require('telescope.builtin')
+		local builtin = require("telescope.builtin")
 
-        vim.keymap.set("n", "<leader>ff", builtin.find_files , { desc = "[f]ind [f]iles" })
-        vim.keymap.set("n", "<leader>fk", builtin.keymaps , { desc = "[f]ind [k]eymaps" })
-        vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[f]ind [g]rep" })
-        vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[f]ind [h]elp" })
-        vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[f]ind [b]uffers" })
-        vim.keymap.set("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "[f]ind fu[z]zy buffer" })
+		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[f]ind [f]iles" })
+		vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[f]ind [k]eymaps" })
+		vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[f]ind [g]rep" })
+		vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[f]ind [h]elp" })
+		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[f]ind [b]uffers" })
+		vim.keymap.set("n", "<leader>fz", builtin.current_buffer_fuzzy_find, { desc = "[f]ind fu[z]zy buffer" })
 
-        vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "[f]ind [o]ld files" })
-        vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "[f]ind [s]tring under cursor" })
+		vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "[f]ind [o]ld files" })
+		vim.keymap.set("n", "<leader>fs", builtin.grep_string, { desc = "[f]ind [s]tring under cursor" })
 
-        -- Git
-        vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Find [g]it [c]ommits" })
-        vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Find [g]it [s]tatus" })
-        vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Find [g]it-ignorred [f]iles" })
+		-- Git
+		vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Find [g]it [c]ommits" })
+		vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Find [g]it [s]tatus" })
+		vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Find [g]it-ignorred [f]iles" })
 
-        -- Bookmarks
-        vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "[f]ind [m]arks" })
-
-    end
+		-- Bookmarks
+		vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "[f]ind [m]arks" })
+	end,
 }
-
-
-
-
-

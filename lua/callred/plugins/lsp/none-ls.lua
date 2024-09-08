@@ -16,17 +16,31 @@ return {
         -- local diagnostics = null_ls.builtins.diagnostics
 
         -- to setup format on save
-        -- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
+        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
         null_ls.setup({
-            -- add package.json as identifier for root (for typescript monorepos)
             sources = {
-                -- Lua
-                null_ls.builtins.formatting.stylua
+                -- do i have to dot his for formatting?
+                null_ls.builtins.formatting.stylua,
+                null_ls.builtins.formatting.prettier,
+                null_ls.builtins.formatting.gofmt,
             },
+
             -- configure format on save
-            on_attach = function(current_client, bufnr)
+            on_attach = function(client, bufnr)
                 -- Setup keybindings for formatting
+                if client.supports_method("textDocument/formatting") then
+                    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        group = augroup,
+                        buffer = bufnr,
+                        callback = function()
+                            -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                            -- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
+                            vim.lsp.buf.format({ async = false })
+                        end,
+                    })
+                end
+
                 vim.keymap.set("n", "<leader>mp", vim.lsp.buf.format, { desc = "Format file" })
             end,
         })
