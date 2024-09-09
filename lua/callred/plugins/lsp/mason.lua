@@ -16,32 +16,35 @@ return {
     require("mason-lspconfig").setup({
       automatic_installation = true,
       ensure_installed = {
-        --				"lua_ls",
-        --				"tsserver",
+        -- mabe use this for style isntalls
+        -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+        -- lua
+        "lua_ls",
+        -- css
+        "cssls",
+        -- typescript
+        "ts_ls",
+        -- go things
+        "gopls",
       },
     })
 
     require("mason-lspconfig").setup_handlers({
       function(server_name)
-        -- this will need to stay here until we get a fix for the
-        -- rename in mason-lspconfig
-        if server_name == "tsserver" then
-          server_name = "ts_ls"
-        end
-
-        local config = {}
+        local settings = {}
         if server_name == "lua_ls" then
-          config = {
-
-            settings = {
-              Lua = {
-                diagnostics = { globals = { "vim" } },
-              },
+          settings = {
+            Lua = {
+              diagnostics = { globals = { "vim" } },
             },
           }
         end
-
-        require("lspconfig")[server_name].setup(config)
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+        require("lspconfig")[server_name].setup({
+          settings = settings,
+          capabilities = capabilities,
+        })
       end,
     })
   end,
