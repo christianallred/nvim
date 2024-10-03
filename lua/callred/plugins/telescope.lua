@@ -31,6 +31,7 @@ return {
     vim.keymap.set("n", "<leader>ff", function()
       builtin.find_files({ hidden = true })
     end, { desc = "[f]ind [f]iles" })
+    vim.keymap.set("n", "<leader>fl", "<cmd>Telescope resume<CR>", { desc = "[f]ind [l]last find (resume)" })
     vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[f]ind [k]eymaps" })
     vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[f]ind [g]rep" })
     vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[f]ind [h]elp" })
