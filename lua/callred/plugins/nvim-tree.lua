@@ -13,6 +13,9 @@ return {
           "^.git$",
         },
       },
+      git = {
+        ignore = false,
+      },
       view = {
         width = 40,
       },
