@@ -16,16 +16,16 @@ return {
 	config = function()
 		local null_ls = require("null-ls")
 
-		-- local mason_null_ls = require("mason-null-ls")
-
 		-- local diagnostics = null_ls.builtins.diagnostics
 
 		-- to setup format on save
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 		null_ls.setup({
 			sources = {
 				-- do i have to dot his for formatting?
 				null_ls.builtins.formatting.stylua,
+				--null_ls.builtins.formatting.prettierd,
 				null_ls.builtins.formatting.prettier,
 				null_ls.builtins.formatting.gofmt,
 			},
@@ -34,15 +34,15 @@ return {
 			on_attach = function(client, bufnr)
 				-- Setup keybindings for formatting
 				if client.supports_method("textDocument/formatting") then
+					print(client.name)
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
 							-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
 							-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
-							vim.lsp.buf.format({ async = false })
+							vim.lsp.buf.format({ bufnr = bufnr, async = false })
 						end,
 					})
 				end
@@ -50,5 +50,10 @@ return {
 				vim.keymap.set("n", "<leader>mp", vim.lsp.buf.format, { desc = "Format file" })
 			end,
 		})
+
+		-- require("mason-null-ls").setup({
+		-- 	ensure_installed = nil,
+		-- 	automatic_installation = true,
+		-- })
 	end,
 }

@@ -5,9 +5,9 @@ opt.number = true
 opt.relativenumber = true
 
 -- tab stuff
-opt.tabstop = 2      -- 2 spaces for tabs
-opt.softtabstop = 2  --  not sure what this one does
-opt.shiftwidth = 2   -- 2 spaces for indent witdth
+opt.tabstop = 2 -- 2 spaces for tabs
+opt.softtabstop = 2 --  not sure what this one does
+opt.shiftwidth = 2 -- 2 spaces for indent witdth
 opt.expandtab = true -- expand tabs to spaces
 
 opt.smartindent = true
